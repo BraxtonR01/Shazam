@@ -1,0 +1,85 @@
+LOC/OFFSET CODE  LABEL     OP/PO    L  OPERAND
+----------------------------------------------
+017              MAIN      PROC
+    003          COUNT     VAR
+    004          NUM_READ  VAR
+000              SORT      PROC
+    003          Z         VAR
+    004          Y         VAR
+000        50002 SORT      BEGIN               
+001        207FF           LOD      0  -1      
+002        10006           DUP                 
+003        30003           STO         Z       
+004        00001           LIT         1       
+005        10002           ADD                 
+006        30004           STO         Y       
+007        20003           LOD         Z       
+008        1000F           LDA                 
+009        20004           LOD         Y       
+00A        1000F           LDA                 
+00B        10009           LSS                 
+00C        6100E           JPC         SWITCH: 
+00D        10000           RET                 
+00E        20003 SWITCH:   LOD         Z       
+00F        1000F           LDA                 
+010        20004           LOD         Y       
+011        1000F           LDA                 
+012        20003           LOD         Z       
+013        10010           STA                 
+014        20004           LOD         Y       
+015        10010           STA                 
+016        10000           RET                 
+			   END
+017        50002 MAIN      BEGIN               
+018        00000           LIT         0       
+019        30004           STO         NUM_READ
+01A        1000D           GET                 
+01B        10006 INPUT:    DUP                 
+01C        30003           STO         COUNT   
+01D        1000D           GET                 
+01E        20004           LOD         NUM_READ
+01F        00001           LIT         1       
+020        10002           ADD                 
+021        30004           STO         NUM_READ
+022        10006           DUP                 
+023        20003           LOD         COUNT   
+024        10008           NEQ                 
+025        6101B           JPC         INPUT:  
+026        507FF           INT         -1      
+027        20004           LOD         NUM_READ
+028        30003           STO         COUNT   
+029        70004           ADR         NUM_READ
+02A        00001           LIT         1       
+02B        10002           ADD                 
+02C        40000 AGAIN:    CAL         SORT    
+02D        00001           LIT         1       
+02E        10002           ADD                 
+02F        10006           DUP                 
+030        20004           LOD         NUM_READ
+031        70004           ADR         NUM_READ
+032        10002           ADD                 
+033        10009           LSS                 
+034        6102C           JPC         AGAIN:  
+035        20004           LOD         NUM_READ
+036        10003           SUB                 
+037        00001           LIT         1       
+038        10002           ADD                 
+039        20003           LOD         COUNT   
+03A        00001           LIT         1       
+03B        10003           SUB                 
+03C        10006           DUP                 
+03D        30003           STO         COUNT   
+03E        6102C           JPC         AGAIN:  
+03F        507FF           INT         -1      
+040        00000           LIT         0       
+041        30003           STO         COUNT   
+042        1000E OUTPUT:   PUT                 
+043        20003           LOD         COUNT   
+044        00001           LIT         1       
+045        10002           ADD                 
+046        10006           DUP                 
+047        30003           STO         COUNT   
+048        20004           LOD         NUM_READ
+049        10008           NEQ                 
+04A        61042           JPC         OUTPUT: 
+04B        63000           HLT                 

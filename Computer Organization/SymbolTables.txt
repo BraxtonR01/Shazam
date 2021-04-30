@@ -1,0 +1,115 @@
+Assembler Dump Symbol Table
+
+PROCEDURE... MAIN    
+
+IDENTIFIER   LOCATION     LEVEL
+ MAIN         017          0001
+ INPUT:       01B          0001
+ AGAIN:       02C          0001
+ OUTPUT:      042          0001
+
+MAIN    ... VARIABLES    TOTAL SPACE REQUIRED: 002
+
+IDENTIFIER   OFFSET       NUMBER OF WORDS
+ COUNT        003          0001
+ NUM_READ     004          0001
+
+MAIN    ... INSTRUCTIONS TOTAL SPACE REQUIRED: 035
+
+OP/PSEUDO-OP LEVEL        OPERAND
+ BEGIN                             
+ LIT                       0       
+ STO                       NUM_READ
+ GET                               
+ DUP                               
+ STO                       COUNT   
+ GET                               
+ LOD                       NUM_READ
+ LIT                       1       
+ ADD                               
+ STO                       NUM_READ
+ DUP                               
+ LOD                       COUNT   
+ NEQ                               
+ JPC                       INPUT:  
+ INT                       -1      
+ LOD                       NUM_READ
+ STO                       COUNT   
+ ADR                       NUM_READ
+ LIT                       1       
+ ADD                               
+ CAL                       SORT    
+ LIT                       1       
+ ADD                               
+ DUP                               
+ LOD                       NUM_READ
+ ADR                       NUM_READ
+ ADD                               
+ LSS                               
+ JPC                       AGAIN:  
+ LOD                       NUM_READ
+ SUB                               
+ LIT                       1       
+ ADD                               
+ LOD                       COUNT   
+ LIT                       1       
+ SUB                               
+ DUP                               
+ STO                       COUNT   
+ JPC                       AGAIN:  
+ INT                       -1      
+ LIT                       0       
+ STO                       COUNT   
+ PUT                               
+ LOD                       COUNT   
+ LIT                       1       
+ ADD                               
+ DUP                               
+ STO                       COUNT   
+ LOD                       NUM_READ
+ NEQ                               
+ JPC                       OUTPUT: 
+ HLT                               
+
+------------------------------
+
+PROCEDURE... SORT    
+
+IDENTIFIER   LOCATION     LEVEL
+ SORT         000          0002
+ SWITCH:      00E          0002
+
+SORT    ... VARIABLES    TOTAL SPACE REQUIRED: 002
+
+IDENTIFIER   OFFSET       NUMBER OF WORDS
+ Z            003          0001
+ Y            004          0001
+
+SORT    ... INSTRUCTIONS TOTAL SPACE REQUIRED: 017
+
+OP/PSEUDO-OP LEVEL        OPERAND
+ BEGIN                             
+ LOD          0            -1      
+ DUP                               
+ STO                       Z       
+ LIT                       1       
+ ADD                               
+ STO                       Y       
+ LOD                       Z       
+ LDA                               
+ LOD                       Y       
+ LDA                               
+ LSS                               
+ JPC                       SWITCH: 
+ RET                               
+ LOD                       Z       
+ LDA                               
+ LOD                       Y       
+ LDA                               
+ LOD                       Z       
+ STA                               
+ LOD                       Y       
+ STA                               
+ RET                               
+
+------------------------------

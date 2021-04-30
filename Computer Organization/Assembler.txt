@@ -1,0 +1,91 @@
+*LLLLLLL CCCCCCCC L OOOOOOOO MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+*INPUT FILE TO BE USED FOR SHAZAM ASSEMBLER
+MAIN     PROC                /
+COUNT    VAR                 /
+NUM_READ VAR                 /
+**                           /
+SORT     PROC                /
+Z        VAR                 /
+Y        VAR                 /
+         BEGIN               /
+         LOD      0 -1       /
+         DUP                 /
+         STO        Z        /
+         LIT        1        /
+         ADD                 /
+         STO        Y        /
+         LOD        Z        /
+         LDA                 /
+         LOD        Y        /
+         LDA                 /
+         LSS                 /
+         JPC        SWITCH:  /
+         RET                 /
+SWITCH:  LOD        Z        /
+         LDA                 /
+         LOD        Y        /
+         LDA                 /
+         LOD        Z        /
+         STA                 /
+         LOD        Y        /
+         STA                 /
+         RET                 /
+         END                 /
+*                            /
+         BEGIN               /
+* THIS IS WHERE THE INPUT IS READ.
+         LIT        0        /
+         STO        NUM_READ /
+         GET                 /
+INPUT:   DUP                 /
+         STO        COUNT    /  STORES A COPY OF THE INPUT
+         GET                 /
+         LOD        NUM_READ /
+         LIT        1        /
+         ADD                 /
+         STO        NUM_READ /
+         DUP                 /
+         LOD        COUNT    /  LOADS LAST INPUT
+         NEQ                 /
+         JPC        INPUT:   /
+         INT        -1       /
+* THIS IS WHERE THE LOOPING IS DONE
+         LOD        NUM_READ /
+         STO        COUNT    /
+         ADR        NUM_READ /
+         LIT        1        /
+         ADD                 /
+AGAIN:   CAL        SORT     /
+         LIT        1        /
+         ADD                 /
+         DUP                 /
+         LOD        NUM_READ /
+         ADR        NUM_READ /
+         ADD                 /
+         LSS                 /
+         JPC        AGAIN:   /  THIS RUNS THE INSIDE LOOP AGAIN.
+         LOD        NUM_READ /
+         SUB                 /
+         LIT        1        /
+         ADD                 /
+         LOD        COUNT    /
+         LIT        1        /
+         SUB                 /
+         DUP                 /
+         STO        COUNT    /
+         JPC        AGAIN:   /  THIS RUNS THE OUTSIDE LOOP AGAIN.
+         INT        -1       /
+         LIT        0        /
+         STO        COUNT    /
+* THIS IS WHERE THE OUTPUT IS PRINTED
+OUTPUT:  PUT                 /
+         LOD        COUNT    /
+         LIT        1        /
+         ADD                 /
+         DUP                 /
+         STO        COUNT    /
+         LOD        NUM_READ /
+         NEQ                 /
+         JPC        OUTPUT:  /
+         HLT                 /
+         END                 /
